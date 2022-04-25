@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>FanumaAbout</title>
@@ -15,6 +16,7 @@
       <div class = "about-left">
         <div class = "about-left-content">
           <div>
+
             <div class = "shadow">
               <div class = "about-img">
                 <img src = "https://i.pinimg.com/564x/a5/7b/72/a57b724ce117d72d1d019055fcc28c88.jpg" alt = "about image">
@@ -23,7 +25,15 @@
 <style>
   h3 a { color:white; }
      A.dot {
-    text-decoration: none; 
+    text-decoration: none;
+
+  </style>
+  <style>
+   .b1 {
+    background: #12192c; /* Синий цвет фона */ 
+    visibility: hidden;
+    font-size: 0.1pt; /* Размер шрифта в пунктах */
+   }
   </style>
             <h2>Fanuma</h2>
             <h3> <a href="https://youtu.be/yxE9N1yubpM" target="_blank" > Kaizoku Ou ni, ore wa naru!</h3></a>
@@ -35,12 +45,16 @@
             <a href="https://twitter.com/Fanuma_" target="_blank"> <li><i  class = "fab fa-twitter"></i></li></a>
             
           </ul>
-          
+          <audio  volume="0">
+    <source src="https://bakemono.ru/uploads/files/One-Piece_WeAre.mp3" type="audio/mpeg">
+    Тег audio не поддерживается вашим браузером. <a href="https://bakemono.ru/uploads/files/One-Piece_WeAre.mp3">Скачайте музыку</a>.
+   </audio>
         </div>
         
       </div>
 
       <div class = "about-right">
+        <a  href="#" onclick="document.querySelector('audio').play()"> <button  class="b1" name="pashalka"  type = "button"> </button> </a>
         <h1>ХУЙ<span>!</span></h1>
         <h2>💚она/её | she/they💛</h2>
         <div  class = "about-btns">
@@ -58,6 +72,7 @@
         </div>
        
       </div>
+      
     </div>
   </body>
 </html>
