@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Dota 2 MMR Tracker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Dota 2 MMR Tracker</h1>
+
+        <form method="get" style="margin-bottom: 15px;">
+            <input type="text" name="steam_id" placeholder="Введите Steam ID" value="{{ steam_id }}" required>
+            <button type="submit">Загрузить</button>
+        </form>
+
+        <div class="profile-info" style="display:flex; align-items: center; gap:10px; margin-bottom: 15px;">
+            <img src="{{ player_info.avatar }}" alt="Avatar" width="64" style="border-radius: 50%;">
+            <strong>{{ player_info.nickname }}</strong>
+
+        </div>
+        <div class="rank-container">
+    <img class="rankMedal-star" src="https://www.opendota.com/assets/images/dota2/rank_icons/rank_star_{{ rank_star }}.png" alt="Star">
+    <img class="rankMedal-icon" src="https://www.opendota.com/assets/images/dota2/rank_icons/rank_icon_{{ rank_medal }}.png" alt="Rank">
+</div>
+
+
+        <form method="POST">
+            <input type="number" name="mmr" placeholder="Введите текущий MMR" required>
+            <button type="submit">Добавить</button>
+            <a href="/update_matches?steam_id={{ steam_id }}">Обновить матчи</a>
+            <a href="/clear?steam_id={{ steam_id }}" style="color:red;">Очистить всё</a>
+        </form>
+
+        <canvas id="mmrChart" style="margin-top:20px;"></canvas>
+
+        <h2>История матчей</h2>
+        <table>
+            <tr><th>Герой</th><th>Результат</th><th>Длительность</th><th>УСП</th></tr>
+            {% for match in data.matches %}
+                <tr>
+                    <td>{{ match.hero }}</td>
+                    <td>{{ match.win }}</td>
+                    <td>{{ match.duration }}</td>
+                    <td>{{ match.kda }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <script>
+        const mmrData = {{ data.mmr_history | tojson }};
+        const ctx = document.getElementById('mmrChart').getContext('2d');
+        const chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: mmrData.map(m => m.timestamp),
+                datasets: [{
+                    label: 'MMR',
+                    data: mmrData.map(m => m.value),
+                    borderColor: 'limegreen',
+                    tension: 0.3,
+                    fill: false,
+                }]
+            }
+        });
+    </script>
+</body>
+</html>
